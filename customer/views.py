@@ -7,10 +7,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import render
 from rest_framework.serializers import Serializer
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from .service import customer_create
 from .models import Customers
-from .serializer import CustomerSerializer, CustomerCreateResponseSerializer
+from .serializer import CustomerSerializer, CustomerCreateResponseSerializer,CustomerDetailsSerializer
 
 
 # Create your views here.
@@ -48,4 +48,10 @@ class CustomerViewSet(CreateAPIView):
             response_serializer.data, status=status.HTTP_201_CREATED
         )
 
+
+class CustomerDetailsView(RetrieveAPIView):
+
+    queryset = Customers.objects.all()
+    serializer_class = CustomerDetailsSerializer
+    lookup_field ='id'
  
